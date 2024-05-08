@@ -36,6 +36,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       // la app var toma un titulo en funcion del indice seleccionado
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80), // Ajusta el tamaño según tus necesidades

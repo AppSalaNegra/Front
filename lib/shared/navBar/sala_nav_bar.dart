@@ -5,10 +5,10 @@ class SalaNegraNavBar extends StatelessWidget {
   final Function(int) onTap;
 
   const SalaNegraNavBar({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,11 @@ class SalaNegraNavBar extends StatelessWidget {
         ),
       ],
       currentIndex: currentIndex,
-      selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+      selectedItemColor: Colors.white,
+      unselectedItemColor:const Color.fromARGB(255, 190, 190, 190),
       onTap: onTap,
+      backgroundColor: const Color.fromARGB(240,0,0,0),
+      elevation: 0,
     );
   }
 }
