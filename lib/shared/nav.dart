@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sala_negra/home/home_view.dart';
 import 'package:sala_negra/news/news_view.dart';
 import 'package:sala_negra/settings/settings_view.dart';
+import 'package:sala_negra/shared/appBar/sala_app_bar.dart';
+import 'package:sala_negra/shared/navBar/sala_nav_bar.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -13,6 +15,8 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
 
   int _selectedIndex = 1;
+
+  // aquí se define la navegación de los botones de la barra inferior
   static const List<Widget> _widgetOptions = <Widget>[
     NewsView(),
     HomeView(),
@@ -32,38 +36,21 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       // la app var toma un titulo en funcion del indice seleccionado
-      appBar: AppBar(
-        title: Text(
-          viewTitles.elementAt(_selectedIndex),
-          style: Theme.of(context).textTheme.titleLarge
-          ),
-        centerTitle: true,
-        backgroundColor: Colors.black,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(80), // Ajusta el tamaño según tus necesidades
+        child: SalaNegraAppBar(title: viewTitles[_selectedIndex]),
       ),
       // el body de la app tomará un valor según el indice seleccionado
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.article),
-            label: 'Noticias',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Programación',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Ajustes',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+      bottomNavigationBar: 
+      SalaNegraNavBar(
+        currentIndex: _selectedIndex, 
         onTap: _onItemTapped,
-      ),
+      )
     );
   }
 }

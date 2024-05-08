@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/nav_bar.dart';
+import 'package:sala_negra/shared/nav.dart';
 
 void main() => runApp(const NavigationBarApp());
 
