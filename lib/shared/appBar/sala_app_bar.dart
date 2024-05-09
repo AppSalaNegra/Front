@@ -10,29 +10,40 @@ class SalaNegraAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: 
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              SalaNegraAppBarLogo(image: 'assets/img/logo.png'),
-              Container(
-                padding: const EdgeInsets.only(left: 30, top: 22),
-                margin: const EdgeInsets.only(bottom: 25, right: 20),
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
-            ], 
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3), // Color de la sombra
+            spreadRadius: 1, // Radio de propagación de la sombra
+            blurRadius: 7, // Radio de desenfoque de la sombra
+            offset: const Offset(0, 3), // Desplazamiento de la sombra en x y y
           ),
         ],
       ),
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-      toolbarHeight: 80,
+      child: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.topLeft,
+              children: [
+                SalaNegraAppBarLogo(image: 'assets/img/logo.png'),
+                Container(
+                  padding: const EdgeInsets.only(left: 30, top: 22),
+                  margin: const EdgeInsets.only(bottom: 25, right: 20),
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        toolbarHeight: 80,
+      ),
     );
   }
 }
