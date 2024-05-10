@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/home/home_view.dart';
+import 'package:sala_negra/prog/prog_view.dart';
 import 'package:sala_negra/news/news_view.dart';
 import 'package:sala_negra/settings/settings_view.dart';
 import 'package:sala_negra/shared/appBar/sala_app_bar.dart';
@@ -17,10 +17,10 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 1;
 
   // aquí se define la navegación de los botones de la barra inferior
-  static const List<Widget> _widgetOptions = <Widget>[
-    NewsView(),
-    HomeView(),
-    SettingsView()
+  static final List<Widget> _widgetOptions = <Widget>[
+    const NewsView(),
+    ProgView(),
+    const SettingsView()
   ];
   
   static const List<String> viewTitles = [
