@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/prog/cats/cats_bar.dart';
 import 'package:sala_negra/prog/cats/cats_bar_state.dart';
-import 'package:sala_negra/prog/prog_list_item.dart';
-import 'package:sala_negra/prog/prog_list_item_state.dart';
+import 'package:sala_negra/prog/listItem/prog_list_item.dart';
+import 'package:sala_negra/prog/listItem/prog_list_item_state.dart';
 
 class ProgView extends StatelessWidget {
 

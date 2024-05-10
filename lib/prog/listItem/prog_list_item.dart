@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sala_negra/prog/listItem/fav_button.dart';
 import 'package:sala_negra/utilities/app_colors.dart';
 import 'prog_list_item_state.dart';
 
@@ -72,22 +73,14 @@ class _ProgListItemState extends State<ProgListItem> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10, right: 10),
-                  child: IconButton(
-                    icon: Icon(
-                      widget.state.isLiked ? Icons.star : Icons.star_border,
-                      color: widget.state.isLiked ? const Color.fromARGB(255, 0, 0, 0) : const Color.fromARGB(255, 0, 0, 0),
-                    ),
-                    onPressed: (){
-                      setState(() {
-                        widget.state.toggleLike();
-                      });
-                    },
-                    iconSize: 50,
-                    
-                  ),
-                ),
+                FavButton(
+                  isLiked: widget.state.isLiked, 
+                  onPressed: (){
+                    setState((){
+                      widget.state.toggleLike();
+                    });
+                  }
+                )
               ],
             ),
           ],
