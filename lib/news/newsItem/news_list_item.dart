@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/prog/listItem/fav_button.dart';
-import 'package:sala_negra/utilities/app_colors.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
 
 class NewsListItem extends StatelessWidget {
