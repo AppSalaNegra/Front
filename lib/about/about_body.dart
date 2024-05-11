@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sala_negra/utilities/app_colors.dart';
+import 'package:sala_negra/utilities/button_styles.dart';
 
 class AboutBody extends StatelessWidget{
   
@@ -17,6 +18,7 @@ class AboutBody extends StatelessWidget{
           Padding(
             padding: const EdgeInsets.only(top: 100),
             child: ElevatedButton(
+              style: ButtonStyles.blackButton,
               onPressed: () {
                 // TODO: incrustar quienes somos sala negra
               },

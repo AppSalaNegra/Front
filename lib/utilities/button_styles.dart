@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ButtonStyles{
-  static const ButtonStyle blackButton = ButtonStyle(
-    
+  static ButtonStyle blackButton = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
   );
 }
