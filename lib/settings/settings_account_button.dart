@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'account/account_view.dart';
 
 class SettingAccountButton extends StatelessWidget{
 
@@ -7,7 +8,15 @@ class SettingAccountButton extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => print('hey cuenta'),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AccountView(),
+            settings: const RouteSettings(arguments: false),
+            )
+        );
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         width: double.infinity, 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/about/about_app_bar.dart';
-import 'package:sala_negra/about/about_body.dart';
+import 'package:sala_negra/settings/about/about_app_bar.dart';
+import 'package:sala_negra/settings/about/about_body.dart';
 
 class AboutView extends StatelessWidget{
   

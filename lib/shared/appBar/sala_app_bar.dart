@@ -22,6 +22,7 @@ class SalaNegraAppBar extends StatelessWidget {
         ],
       ),
       child: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

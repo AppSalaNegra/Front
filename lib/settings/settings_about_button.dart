@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/about/about_view.dart';
+import 'package:sala_negra/settings/about/about_view.dart';
 
 class SettingsAccountButton extends StatelessWidget{
 

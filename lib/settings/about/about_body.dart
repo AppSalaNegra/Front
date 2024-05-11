@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/about/about_black_button.dart';
-import 'package:sala_negra/about/about_social_links.dart';
+import 'package:sala_negra/settings/about/about_black_button.dart';
+import 'package:sala_negra/settings/about/about_social_links.dart';
 import 'package:sala_negra/utilities/app_colors.dart';
 import 'package:sala_negra/utilities/button_styles.dart';
 
