@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:sala_negra/news/newsItem/news_list_item.dart';
 
 class NewsView extends StatelessWidget {
-const NewsView({ Key? key }) : super(key: key);
+const NewsView({ super.key });
 
   @override
   Widget build(BuildContext context){
-    return const Text(
-      'Vista de noticias',
-      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    return Column(
+      children: [
+        // Lista de elementos
+        Expanded(
+          child: ListView(
+            children: const <Widget>[
+              NewsListItem(),
+              NewsListItem(),
+              NewsListItem()
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
