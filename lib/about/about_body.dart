@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:sala_negra/about/about_black_button.dart';
+import 'package:sala_negra/about/about_social_links.dart';
 import 'package:sala_negra/utilities/app_colors.dart';
 import 'package:sala_negra/utilities/button_styles.dart';
 
@@ -15,19 +16,21 @@ class AboutBody extends StatelessWidget{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 100),
-            child: ElevatedButton(
-              style: ButtonStyles.blackButton,
-              onPressed: () {
-                // TODO: incrustar quienes somos sala negra
-              },
-              child: Text(
-                'Quiénes somos',
-                style: Theme.of(context).textTheme.displayMedium
+          AboutBlackButton(title: 'Quiénes somos', padding: 100, onPressed: (){}),
+          AboutBlackButton(title: ' Qué hacemos ',padding: 70, onPressed: (){}),
+          const AboutSocialLinks(),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: BackButton(
+                  color: Colors.white,
+                  style: ButtonStyles.backButton,
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -6,31 +6,33 @@ class SalaNegraAboutAppBar extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-return Container(
+    return Container(
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3), // Color de la sombra
-            spreadRadius: 1, // Radio de propagación de la sombra
-            blurRadius: 7, // Radio de desenfoque de la sombra
-            offset: const Offset(0, 3), // Desplazamiento de la sombra en x y y
+            color: Colors.black.withOpacity(0.3), 
+            spreadRadius: 1, 
+            blurRadius: 7, 
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              alignment: Alignment.topLeft,
-              children: [
-              ],
-            ),
-          ],
-        ),
+        automaticallyImplyLeading: false,
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-        toolbarHeight: 80,
+        flexibleSpace: FlexibleSpaceBar(
+          centerTitle: true,
+          title: SizedBox(
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: Image.asset(
+                'assets/img/horizontal_brillo.png',
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

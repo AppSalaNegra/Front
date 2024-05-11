@@ -10,8 +10,9 @@ class AboutView extends StatelessWidget{
   Widget build(BuildContext context) {
     return const Scaffold(
       extendBody: true,
+      
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
+        preferredSize: Size.fromHeight(100),
         child: SalaNegraAboutAppBar(),
       ),
       body: AboutBody()

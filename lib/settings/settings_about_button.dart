@@ -24,7 +24,7 @@ class SettingsAccountButton extends StatelessWidget{
           children: [
             Expanded(
               child: Text(
-                'Sobre Nosotros',
+                'Sobre nosotros',
                 style: Theme.of(context).textTheme.displayLarge,
               ),
             ),
