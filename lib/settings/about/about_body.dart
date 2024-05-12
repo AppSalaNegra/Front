@@ -12,7 +12,7 @@ class AboutBody extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.primaryColor,
-      width: double.infinity, // Asegura que el contenedor ocupe todo el ancho de la pantalla
+      width: double.infinity, 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/shared/nav.dart';
+import 'package:sala_negra/login/login_view.dart';
 
 void main() => runApp(const NavigationBarApp());
 
@@ -23,7 +23,7 @@ class NavigationBarApp extends StatelessWidget {
         primaryColorDark: const Color(0xFF2D2926),
         fontFamily: 'Avenir'
       ),
-      home: const NavBar(),
+      home: const LoginView(),
     );
   }
 }
