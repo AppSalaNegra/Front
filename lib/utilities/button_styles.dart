@@ -8,7 +8,6 @@ class ButtonStyles{
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(58.0),)
     ),
-    overlayColor: MaterialStateProperty.all<Color>(AppColors.primaryColor),
     elevation: MaterialStateProperty.all<double>(12)
   );
 
@@ -17,7 +16,14 @@ class ButtonStyles{
     padding: MaterialStateProperty.all<EdgeInsets>(
       const EdgeInsets.all(15.0)
     ),
-    overlayColor: MaterialStateProperty.all<Color>(AppColors.primaryColor),
+    elevation: MaterialStateProperty.all<double>(12)
+  );
+
+  static ButtonStyle yellowButton = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(AppColors.primaryColor),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(58.0),)
+    ),
     elevation: MaterialStateProperty.all<double>(12)
   );
 }

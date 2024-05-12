@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/settings/collection/collection_view.dart';
+import 'package:sala_negra/settings/password/password_view.dart';
+import 'package:sala_negra/utilities/app_fonts.dart';
 
-class SettingsCollectionButton extends StatelessWidget{
+class AccountChangePasswordButton extends StatelessWidget{
   
-  const SettingsCollectionButton({super.key});
+  const AccountChangePasswordButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class SettingsCollectionButton extends StatelessWidget{
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const CollectionView(),
+            builder: (context) => const PasswordView(),
             settings: const RouteSettings(arguments: false),
             )
         );
@@ -20,15 +21,15 @@ class SettingsCollectionButton extends StatelessWidget{
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         width: double.infinity, 
-        child: Row(
+        child: const Row(
           children: [
             Expanded(
               child: Text(
-                'Colección',
-                style: Theme.of(context).textTheme.displayLarge,
+                'Cambiar contraseña',
+                style: AppFonts.largeFont,
               ),
             ),
-            const Icon(
+            Icon(
               Icons.keyboard_arrow_right,
               size: 30,
             )
@@ -36,5 +37,7 @@ class SettingsCollectionButton extends StatelessWidget{
         ),
       ),
     );
+
   }
+
 }

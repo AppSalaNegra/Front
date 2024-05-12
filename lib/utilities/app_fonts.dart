@@ -15,5 +15,5 @@ class AppFonts{
   static const TextStyle newsItemTitle = TextStyle(height:1, fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Avenir', color: Colors.white);
 
   static const TextStyle mediumBlackButton = TextStyle(fontSize: 16, fontFamily: 'Avenir', color: Colors.white);
-
+  static const TextStyle mediumYellowButton = TextStyle(fontSize: 16, fontFamily: 'Avenir', color: Color.fromARGB(255, 0, 0, 0));
 }
