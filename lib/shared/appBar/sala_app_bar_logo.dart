@@ -10,9 +10,9 @@ final String image;
   Widget build(BuildContext context) {
     return Image.asset(
       image,
-      width: 50, // Ancho de la imagen
-      height: 40, // Alto de la imagen
-      fit: BoxFit.cover, // Ajuste de la imagen dentro del contenedor
+      width: 50, 
+      height: 40, 
+      fit: BoxFit.cover,
     );
   }
 }

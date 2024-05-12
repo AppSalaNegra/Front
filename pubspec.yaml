@@ -63,9 +63,13 @@ flutter:
         - asset: assets/fonts/AvenirNextLTPro-Regular.otf
         - asset: assets/fonts/AvenirNextLTPro-Bold.otf
           weight: 700
+    - family:  SocialLogos
+      fonts:
+        - asset: assets/fonts/SocialLogos.ttf
   # To add assets to your application, add an assets section, like this:
   assets:
       - assets/img/logo.png
+      - assets/img/horizontal_brillo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -13,6 +13,7 @@ class NavigationBarApp extends StatelessWidget {
         textTheme: const TextTheme(
           displaySmall: TextStyle(fontSize: 14),
           displayMedium: TextStyle(fontSize: 16),
+          displayLarge: TextStyle(fontSize: 24),
           titleLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           titleMedium: TextStyle(height: 1, fontSize: 18, fontWeight: FontWeight.bold),
