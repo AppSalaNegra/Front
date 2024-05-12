@@ -10,6 +10,7 @@ class PasswordView extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
         child: SalaNegraAppBar(title: 'CONTRASEÑA'),
