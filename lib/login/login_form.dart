@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sala_negra/login/login_form_controller.dart';
 import 'package:sala_negra/register/register_view.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
 import 'package:sala_negra/utilities/button_styles.dart';
@@ -6,7 +7,9 @@ import 'package:sala_negra/utilities/text_fields_decoration.dart';
 
 class LoginForm extends StatelessWidget{
   
-  const LoginForm({super.key});
+  LoginForm({super.key});
+
+  final LoginFormController _controller = LoginFormController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +19,21 @@ class LoginForm extends StatelessWidget{
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           margin: const EdgeInsets.only(top: 40),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Correo electrónico:', style: AppFonts.formFont,),
-              Container(
-                margin: const EdgeInsets.only(top: 10),
-                decoration: TextFieldsDecoration.mainFieldShadow, 
-                child: TextField(
-                  expands: false, 
-                  style: AppFonts.mediumFont,
-                  decoration: TextFieldsDecoration.mainFieldDecoration
-                ),
-              )
-            ],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Correo electrónico:', style: AppFonts.formFont,),
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              decoration: TextFieldsDecoration.mainFieldShadow, 
+              child: TextField(
+                expands: false, 
+                style: AppFonts.mediumFont,
+                controller: _controller.email,
+                decoration: 
+                TextFieldsDecoration.mainFieldDecoration,
+              ),
+            ),
+          ],
           ),
         ),
         Container(
@@ -42,9 +47,11 @@ class LoginForm extends StatelessWidget{
                 margin: const EdgeInsets.only(top: 10),
                 decoration: TextFieldsDecoration.mainFieldShadow, 
                 child: TextField(
+                  obscureText: true,
                   expands: false, 
                   style: AppFonts.mediumFont,
-                  decoration: TextFieldsDecoration.mainFieldDecoration
+                  decoration: TextFieldsDecoration.mainFieldDecoration,
+                  controller: _controller.password,
                 ),
               )
             ],
@@ -54,7 +61,7 @@ class LoginForm extends StatelessWidget{
           padding: const EdgeInsets.only(top:70),
           child: ElevatedButton(
             style: ButtonStyles.blackButton,
-            onPressed: (){},
+            onPressed: _controller.validateForm,
             child: const Padding(
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
               child: Text('Entra',

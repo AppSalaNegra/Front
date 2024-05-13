@@ -19,4 +19,6 @@ class AppFonts{
 
   static const TextStyle formFont = TextStyle(fontSize: 20, fontFamily: 'Avenir', color: Colors.black);
   static const TextStyle underlined = TextStyle(fontSize: 20, fontFamily: 'Avenir', color: Colors.black, decoration: TextDecoration.underline);
+
+  static const TextStyle errorFont = TextStyle(fontSize: 14, fontFamily: 'Avenir', color: Color.fromARGB(255, 255, 17, 0));
 }
