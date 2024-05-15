@@ -6,13 +6,10 @@ class LoginFormController{
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   
-  bool validateEmail(String email) {
-    return EmailValidator.validate(email);
-  }
-
-  void validateForm(){
-    if(!validateEmail(email.text)){
-      print('error');
+  bool validateEmail(String? email) {
+    if(email == null){
+      return false;
     }
+    return EmailValidator.validate(email);
   }
 }

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:sala_negra/utilities/app_fonts.dart';
 
 class TextFieldsDecoration{
    
-  static InputDecoration mainFieldDecoration = 
-  InputDecoration(
-      border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0), 
-      borderSide: BorderSide.none, 
+  static InputDecoration mainFieldDecoration = InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.0),
+      borderSide: BorderSide.none,
     ),
     contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
     focusedBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color:Color.fromARGB(255, 0, 0, 0)),
+      borderSide: const BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
       borderRadius: BorderRadius.circular(8.0),
     ),
+    errorStyle: AppFonts.errorFont,
+    errorMaxLines: 1,  
   );
 
   static const ShapeDecoration mainFieldShadow = 
