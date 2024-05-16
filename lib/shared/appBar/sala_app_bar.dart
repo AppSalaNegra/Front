@@ -14,10 +14,10 @@ class SalaNegraAppBar extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3), // Color de la sombra
-            spreadRadius: 1, // Radio de propagación de la sombra
-            blurRadius: 7, // Radio de desenfoque de la sombra
-            offset: const Offset(0, 3), // Desplazamiento de la sombra en x y y
+            color: Colors.black.withOpacity(0.3), 
+            spreadRadius: 1,
+            blurRadius: 7, 
+            offset: const Offset(0, 3), 
           ),
         ],
       ),
