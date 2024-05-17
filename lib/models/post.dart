@@ -21,10 +21,9 @@ class Post {
     required this.status,
   });
 
-  // Convert a Post object to a JSON map
   Map<String, dynamic> toJson() {
     return {
-      '_id': {'\$oid': id},
+      'id': {'\$oid': id},
       'dateTime': {'\$date': {'\$numberLong': dateTime.millisecondsSinceEpoch.toString()}},
       'title': title,
       'excerpt': excerpt,
@@ -36,10 +35,9 @@ class Post {
     };
   }
 
-  // Create a Post object from a JSON map
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      id: json['_id']['\$oid'],
+      id: json['id'],
       dateTime: DateTime.fromMillisecondsSinceEpoch(int.parse(json['dateTime']['\$date']['\$numberLong'])),
       title: json['title'],
       excerpt: json['excerpt'],

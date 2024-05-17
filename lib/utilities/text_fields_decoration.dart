@@ -20,7 +20,7 @@ class TextFieldsDecoration{
   static const ShapeDecoration mainFieldShadow = 
   ShapeDecoration(
     gradient: LinearGradient(
-      colors: [Color.fromARGB(255, 204, 194, 184), Color(0xFFf7f5ec)],
+      colors: [Color.fromARGB(255, 204, 194, 184), Color.fromARGB(255, 255, 255, 255)],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       stops: [0.0, 0.2],
