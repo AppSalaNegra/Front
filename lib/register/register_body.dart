@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/register/register_form.dart';
-import 'package:sala_negra/utilities/app_colors.dart';
 
 class RegisterBody extends StatelessWidget{
   
@@ -8,10 +7,12 @@ class RegisterBody extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.primaryColor,
-      width: double.infinity,
-      child: const RegisterForm(),
+    return SingleChildScrollView(
+      child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height-140,
+          child: const RegisterForm(),
+          )
     );
   }
 }
