@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/prog/listItem/prog_list_item.dart';
-import 'package:sala_negra/prog/listItem/prog_list_item_state.dart';
+//import 'package:sala_negra/prog/listItem/prog_list_item.dart';
+//import 'package:sala_negra/prog/listItem/prog_list_item_state.dart';
 
 
 class CollectionBody extends StatelessWidget{
@@ -14,8 +14,8 @@ class CollectionBody extends StatelessWidget{
             Expanded(
               child: ListView(
                 children: <Widget>[
-                  ProgListItem(state: ProgListItemState()),
-                  ProgListItem(state: ProgListItemState()),
+                 // ProgListItem(state: ProgListItemState()),
+                 // ProgListItem(state: ProgListItemState()),
                 ],
               ),
             ),

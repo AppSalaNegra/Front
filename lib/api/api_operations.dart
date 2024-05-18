@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:sala_negra/models/app_events.dart';
 import 'package:sala_negra/models/event.dart';
 import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/utilities/api_routes.dart';
@@ -67,5 +68,21 @@ static ApiOperations getInstance() {
       return 'este usuario ya existe';
     }
     return 'error al procesar la solicitud';
+  }
+
+  Future<bool> getEvents(String? token) async{
+    final Response response = await _dioHttp.get(ApiRoutes.getEvents,
+     options: Options(
+        headers: {
+          'Authorization': 'Bearer $token'
+        },
+      validateStatus: (status)=>true)
+    );
+    if(response.statusCode == 200){
+      List<Event> eventData = (response.data['data'] as List<dynamic>).map((item) => Event.fromJson(item)).toList();      
+      AppEvents.getInstance().setEvents(eventData);
+      return true;
+    }
+    return false;
   }
 }

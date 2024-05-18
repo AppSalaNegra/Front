@@ -3,10 +3,10 @@ import 'cats_button.dart';
 import 'cats_bar_state.dart';
 
 class CatsBar extends StatefulWidget {
- 
   final CatsBarState state;
+  final Function(String) onCatSelected;
 
-  const CatsBar({super.key, required this.state});
+  const CatsBar({super.key, required this.state, required this.onCatSelected});
 
   @override
   State<CatsBar> createState() => _CatsBarState();
@@ -20,15 +20,15 @@ class _CatsBarState extends State<CatsBar> {
         color: const Color.fromARGB(255, 255, 255, 255),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5), // Color de la sombra
-            spreadRadius: 0.3, // Radio de expansión de la sombra
-            blurRadius: 5, // Desenfoque de la sombra
-            offset: const Offset(0, 1), // Desplazamiento de la sombra (horizontal, vertical)
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 0.3,
+            blurRadius: 5,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal, // Eliminar margen inferior
+        scrollDirection: Axis.horizontal,
         child: ButtonBar(
           children: CatsBarState.cats.map((cat) {
             return CatButton(
@@ -37,8 +37,8 @@ class _CatsBarState extends State<CatsBar> {
               onPressed: () {
                 setState(() {
                   widget.state.selectCat(cat);
+                  widget.onCatSelected(cat);
                 });
-                print("Botón $cat presionado");
               },
             );
           }).toList(),

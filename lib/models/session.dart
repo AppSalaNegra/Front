@@ -3,7 +3,7 @@ import 'package:sala_negra/models/event.dart';
 class Session {
   String? token;
   String? id;
-  List<Event>? userEvents;
+  List<Event> userEvents = [];
 
   static final Session _instance = Session._internal();
 
@@ -25,14 +25,14 @@ class Session {
   void closeSession(){
     token = null;
     id = null;
-    userEvents = null;
+    userEvents = [];
   }
 
   void addUserEvent(Event event){
-    userEvents!.add(event);
+    userEvents.add(event);
   }
 
   void removeUserEvent(Event event){
-    userEvents!.remove(event);
+    userEvents.remove(event);
   }
 }
