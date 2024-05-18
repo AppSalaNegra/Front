@@ -44,7 +44,11 @@ class Event {
     };
   }
 
-factory Event.fromJson(Map<String, dynamic> json) {
+  List<String> getCategoryNames() {
+    return cats.map((cat) => cat.values.first).toList();
+  }
+
+  factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
       id: json['id'],
       startDateTime: DateTime.parse(json['startDateTime']),

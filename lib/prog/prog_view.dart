@@ -6,25 +6,45 @@ import 'package:sala_negra/prog/cats/cats_bar_state.dart';
 import 'package:sala_negra/prog/listItem/prog_list_item.dart';
 import 'package:sala_negra/prog/listItem/prog_list_item_state.dart';
 
-class ProgView extends StatelessWidget {
+class ProgView extends StatefulWidget {
+  
+  const ProgView({super.key});
+
+  @override
+  _ProgViewState createState() => _ProgViewState();
+}
+
+class _ProgViewState extends State<ProgView> {
 
   final CatsBarState _catsBarState = CatsBarState();
   final events = AppEvents.getInstance().getAllEvents();
   final userEvents = Session.getInstance().userEvents;
-
-  ProgView({super.key});  
+  String selectedCat = 'Todos';
 
   List<ProgListItemState> setItems(){
     List<ProgListItemState> items = [];
+    events.sort((a, b) => a.startDateTime.compareTo(b.startDateTime));
     for (var event in events) {
+      if (selectedCat != 'Todos' && !event.getCategoryNames().contains(selectedCat)) {
+        continue; 
+      }
       if(userEvents.isEmpty){
         items.add(ProgListItemState(false, event));
-      } else if(userEvents.contains(event)){
-        items.add(ProgListItemState(true, event));
+      }else{
+        if(userEvents.contains(event)){
+          items.add(ProgListItemState(true, event));
+        }else {
+          items.add(ProgListItemState(false, event));
+        }
       }
-      items.add(ProgListItemState(false, event));
     }
     return items;
+  }
+
+  void updateSelectedCat(String cat) {
+    setState(() {
+      selectedCat = cat;
+    });
   }
 
   @override
@@ -32,23 +52,27 @@ class ProgView extends StatelessWidget {
     var items = setItems();
     return Column(
       children: [
-        // Lista de elementos
+        // CatsBar
+        CatsBar(
+          state: _catsBarState,
+          onCatSelected: updateSelectedCat,
+        ),
+        const SizedBox(height: 10),
+        // Expanded para la lista de elementos
         Expanded(
-          child: ListView.builder(
-            itemCount: items.length + 1, 
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return Column(
-                  children: [
-                    CatsBar(state: _catsBarState),
-                    const SizedBox(height: 10),
-                  ],
-                );
-              } else {
-                return ProgListItem(state: items[index - 1]);
-              }
-            },
-          ),
+          child: items.isEmpty
+              ? const Center(
+                  child: Text(
+                    'Oops, parece que no hay nada por aquí.',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return ProgListItem(state: items[index]);
+                  },
+                ),
         ),
       ],
     );

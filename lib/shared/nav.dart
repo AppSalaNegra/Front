@@ -17,11 +17,12 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
 
   int _selectedIndex = 1;
+  bool _isLoading = true;
 
   // aquí se define la navegación de los botones de la barra inferior
   static final List<Widget> _widgetOptions = <Widget>[
     const NewsView(),
-    ProgView(),
+    const ProgView(),
     const SettingsView()
   ];
   
@@ -38,7 +39,9 @@ class _NavBarState extends State<NavBar> {
   void _onLoad() async {
     final token = Session.getInstance().token;
     if(await ApiOperations.getInstance().getEvents(token)){
-      print("ok");
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -53,12 +56,14 @@ class _NavBarState extends State<NavBar> {
     return Scaffold(
       extendBody: true,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80), // Ajusta el tamaño según tus necesidades
+        preferredSize: const Size.fromHeight(80), 
         child: SalaNegraAppBar(title: viewTitles[_selectedIndex]),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _isLoading 
+          ? const Center(child: CircularProgressIndicator(color: Colors.black,)) 
+          : Center(
+              child: _widgetOptions.elementAt(_selectedIndex),
+          ),
       bottomNavigationBar: 
       SalaNegraNavBar(
         currentIndex: _selectedIndex, 
