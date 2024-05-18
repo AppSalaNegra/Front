@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sala_negra/api/api_operations.dart';
+import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/prog/prog_view.dart';
 import 'package:sala_negra/news/news_view.dart';
 import 'package:sala_negra/settings/settings_view.dart';
@@ -26,6 +28,19 @@ class _NavBarState extends State<NavBar> {
   static const List<String> viewTitles = [
     'NOTICIAS', 'PROGRAMACIÓN', 'AJUSTES'
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _onLoad();
+  }
+
+  void _onLoad() async {
+    final token = Session.getInstance().token;
+    if(await ApiOperations.getInstance().getEvents(token)){
+      print("ok");
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
