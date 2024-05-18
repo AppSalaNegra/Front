@@ -7,7 +7,7 @@ class Event {
   String url;
   String slug;
   String thumbnailUrl;
-  Map<String, String> cats;
+  List<Map<String, String>> cats;
   String status;
   String hierarchy;
   String type;
@@ -29,7 +29,7 @@ class Event {
 
   Map<String, dynamic> toJson() {
     return {
-      '_id': {'\$oid': id},
+      'id': {'\$oid': id},
       'startDateTime': {'\$date': {'\$numberLong': startDateTime.millisecondsSinceEpoch.toString()}},
       'finishDateTime': {'\$date': {'\$numberLong': finishDateTime.millisecondsSinceEpoch.toString()}},
       'title': title,
@@ -44,17 +44,19 @@ class Event {
     };
   }
 
-  factory Event.fromJson(Map<String, dynamic> json) {
+factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
-      id: json['_id']['\$oid'],
-      startDateTime: DateTime.fromMillisecondsSinceEpoch(int.parse(json['startDateTime']['\$date']['\$numberLong'])),
-      finishDateTime: DateTime.fromMillisecondsSinceEpoch(int.parse(json['finishDateTime']['\$date']['\$numberLong'])),
+      id: json['id'],
+      startDateTime: DateTime.parse(json['startDateTime']),
+      finishDateTime: DateTime.parse(json['finishDateTime']),
       title: json['title'],
       excerpt: json['excerpt'],
       url: json['url'],
       slug: json['slug'],
       thumbnailUrl: json['thumbnail_url'],
-      cats: Map<String, String>.from(json['cats']),
+      cats: (json['cats'] as List)
+          .map((cat) => Map<String, String>.from(cat))
+          .toList(),
       status: json['status'],
       hierarchy: json['hierarchy'],
       type: json['type'],

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sala_negra/api/api_operations.dart';
 import 'package:sala_negra/login/login_form_controller.dart';
+import 'package:sala_negra/shared/nav.dart';
 import 'package:sala_negra/register/register_view.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
 import 'package:sala_negra/utilities/button_styles.dart';
+import 'package:sala_negra/utilities/sala_negra_toast.dart';
 import 'package:sala_negra/utilities/text_fields_decoration.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 
 class LoginForm extends StatefulWidget {
   
@@ -45,15 +46,7 @@ class _LoginFormState extends State<LoginForm>{
                   TextFieldsDecoration.mainFieldDecoration,
                   validator: (value) {
                     if(!_controller.validateEmail(value)){
-                      Fluttertoast.showToast(
-                      msg: "e-mail inválido",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red.withAlpha(220),
-                      textColor: Colors.white,
-                      fontSize: 16.0,
-                      );
+                      SalaNegraToast.launchToast('e-mail inválido');
                       validEmail = false;
                     }else{validEmail = true;}
                     return null;
@@ -88,10 +81,19 @@ class _LoginFormState extends State<LoginForm>{
             padding: const EdgeInsets.only(top:70),
             child: ElevatedButton(
               style: ButtonStyles.blackButton,
-              onPressed: () {
+              onPressed: () async {
                 if(_loginKey.currentState!.validate()){
                   if(validEmail){
-                    print("ok");
+                    final success = await ApiOperations.getInstance().loginSuccess(_controller.email.text, _controller.password.text);
+                    if(success && mounted){
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NavBar(),
+                        settings: const RouteSettings(arguments: false),
+                        )
+                    );
+                    } else{ SalaNegraToast.launchToast('credenciales inválidas');} 
                   }
                 }
               },
@@ -107,7 +109,7 @@ class _LoginFormState extends State<LoginForm>{
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.only(bottom: 80.0),
                 child: TextButton(
                   onPressed: () {
                     Navigator.push(
