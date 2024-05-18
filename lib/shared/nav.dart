@@ -24,7 +24,7 @@ class _NavBarState extends State<NavBar> {
   ];
   
   static const List<String> viewTitles = [
-    'NOTICIAS', 'PROGRAMACIÓN', 'AJUSTES' 
+    'NOTICIAS', 'PROGRAMACIÓN', 'AJUSTES'
   ];
 
   void _onItemTapped(int index) {
@@ -37,12 +37,10 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      // la app var toma un titulo en funcion del indice seleccionado
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80), // Ajusta el tamaño según tus necesidades
         child: SalaNegraAppBar(title: viewTitles[_selectedIndex]),
       ),
-      // el body de la app tomará un valor según el indice seleccionado
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

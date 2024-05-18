@@ -25,7 +25,7 @@ class SalaNegraNavBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: 'Ajustes',
-        ),
+        ),        
       ],
       currentIndex: currentIndex,
       selectedItemColor: Colors.white,
