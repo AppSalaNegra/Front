@@ -214,6 +214,6 @@ class ApiOperations {
       context!,
       MaterialPageRoute(builder: (context) => const LoginView()),
     );
-    SalaNegraToast.launchToast('La sesión ha expirado');
+    SalaNegraToast.launchAlertToast(context,'La sesión ha expirado');
   }
 }

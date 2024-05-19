@@ -115,7 +115,8 @@ class _ProgListItemState extends State<ProgListItem> {
                         Session.getInstance().id, widget.state.event.id, Session.getInstance().token
                       )){
                         Session.getInstance().removeUserEvent(widget.state.event);
-                        SalaNegraToast.launchToast('Elemento eliminado de la colección');
+                        // ignore: use_build_context_synchronously
+                        SalaNegraToast.launchInfoToast(context,'Elemento eliminado de la colección');
                         ok = true;
                       }
                     } else{
@@ -123,14 +124,16 @@ class _ProgListItemState extends State<ProgListItem> {
                         Session.getInstance().id, widget.state.event.id, Session.getInstance().token
                       )){
                         Session.getInstance().addUserEvent(widget.state.event);
-                        SalaNegraToast.launchToast('Elemento añadido a la colección');
+                        // ignore: use_build_context_synchronously
+                        SalaNegraToast.launchInfoToast(context,'Elemento añadido a la colección');
                         ok = true;
                       }
                     }
                     if(ok){setState((){
                       widget.state.toggleLike();
                     });}else{
-                      SalaNegraToast.launchToast('Error al procesar la solicitud');
+                      // ignore: use_build_context_synchronously
+                      SalaNegraToast.launchAlertToast(context,'Error al procesar la solicitud');
                     }
                   }
                 )

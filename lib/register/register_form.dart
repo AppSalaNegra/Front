@@ -42,7 +42,7 @@ class _RegisterFormState extends State<RegisterForm>{
                     controller: _controller.name,
                     validator: (value) {
                       if(!_controller.validateName(value)){
-                        SalaNegraToast.launchToast('Nombre inválido');
+                        SalaNegraToast.launchAlertToast(context,'Nombre inválido');
                       }
                       return null;
                     },
@@ -66,7 +66,7 @@ class _RegisterFormState extends State<RegisterForm>{
                     controller: _controller.lastname,
                     validator: (value) {
                       if(!_controller.validateLastname(value)){
-                        SalaNegraToast.launchToast('Apellidos inválido');
+                        SalaNegraToast.launchAlertToast(context,'Apellidos inválido');
                       }
                       return null;
                     },                    
@@ -90,7 +90,7 @@ class _RegisterFormState extends State<RegisterForm>{
                     controller: _controller.email,
                     validator: (value) {
                       if(!_controller.validateEmail(value)){
-                        SalaNegraToast.launchToast('e-mail inválido');
+                        SalaNegraToast.launchAlertToast(context,'e-mail inválido');
                       }
                       return null;
                     },                    
@@ -134,7 +134,7 @@ class _RegisterFormState extends State<RegisterForm>{
                     controller: _controller.repeatPassword,
                     validator: (value) {
                       if(!_controller.validatePassword(_controller.password.text, value)){
-                        SalaNegraToast.launchToast('Contraseña inválida');
+                        SalaNegraToast.launchAlertToast(context,'Contraseña inválida');
                       }
                       return null;
                     },
@@ -153,15 +153,18 @@ class _RegisterFormState extends State<RegisterForm>{
                   String response = await ApiOperations.getInstance().registerSuccess(
                     _controller.email.text, _controller.name.text, 
                     _controller.lastname.text, _controller.password.text);
-                  SalaNegraToast.launchToast(response);
-                  if(response == 'usuario registrado'){Navigator.push(
+                  if(response == 'usuario registrado'){
+                    // ignore: use_build_context_synchronously
+                    SalaNegraToast.launchInfoToast(context,response);
+                    Navigator.push(
                       // ignore: use_build_context_synchronously
                       context,
                       MaterialPageRoute(
                         builder: (context) => const LoginView(),
                         settings: const RouteSettings(arguments: false),
                         )
-                    );}
+                    // ignore: use_build_context_synchronously
+                    );}else{SalaNegraToast.launchAlertToast(context,response);}
                 }
               },
               child: const Padding(

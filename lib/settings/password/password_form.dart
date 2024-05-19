@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/api/api_operations.dart';
+import 'package:sala_negra/login/login_view.dart';
 import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/settings/password/password_form_controller.dart';
-import 'package:sala_negra/shared/nav.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
 import 'package:sala_negra/utilities/button_styles.dart';
 import 'package:sala_negra/utilities/sala_negra_toast.dart';
@@ -43,7 +43,7 @@ class _PasswordFormState extends State<PasswordForm>{
                     controller: _controller.password,
                     validator: (value){
                       if(!_controller.validatePassword(value)){
-                        SalaNegraToast.launchToast('Campo contraseña vacío');
+                        SalaNegraToast.launchAlertToast(context,'Contraseña inválida');
                       }
                       return null;
                     },
@@ -88,7 +88,7 @@ class _PasswordFormState extends State<PasswordForm>{
                     controller: _controller.repeatPassword,
                     validator: (value) {
                       if(!_controller.validateNewPassword(_controller.newPassword.text, value)){
-                        SalaNegraToast.launchToast('Las contraseñas no coinciden');
+                        SalaNegraToast.launchAlertToast(context,'Las contraseñas no coinciden');
                       }
                       return null;
                     },
@@ -109,15 +109,19 @@ class _PasswordFormState extends State<PasswordForm>{
                       Session.getInstance().id, _controller.password.text, 
                       _controller.newPassword.text, Session.getInstance().token
                     );
-                    SalaNegraToast.launchToast(response);
-                    if(response == 'Contraseña cambiada con éxito'){Navigator.push(
+                    if(response == 'Contraseña cambiada con éxito'){
+                      // ignore: use_build_context_synchronously
+                      SalaNegraToast.launchInfoToast(context,response);
+                      Session.getInstance().closeSession();
+                      Navigator.push(
                       // ignore: use_build_context_synchronously
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const NavBar(),
+                        builder: (context) => const LoginView(),
                         settings: const RouteSettings(arguments: false),
                         )
-                    );}
+                    // ignore: use_build_context_synchronously
+                    );} else{SalaNegraToast.launchAlertToast(context,response);}
                   }
                 },
                 child: const Padding(

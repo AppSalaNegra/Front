@@ -46,7 +46,7 @@ class _LoginFormState extends State<LoginForm>{
                   TextFieldsDecoration.mainFieldDecoration,
                   validator: (value) {
                     if(!_controller.validateEmail(value)){
-                      SalaNegraToast.launchToast('e-mail inválido');
+                      SalaNegraToast.launchAlertToast(context,'e-mail inválido');
                       validEmail = false;
                     }else{validEmail = true;}
                     return null;
@@ -95,7 +95,8 @@ class _LoginFormState extends State<LoginForm>{
                         builder: (context) => const NavBar(),
                         settings: const RouteSettings(arguments: false),)
                       );
-                    } else{ SalaNegraToast.launchToast('credenciales inválidas');} 
+                    // ignore: use_build_context_synchronously
+                    } else{ SalaNegraToast.launchAlertToast(context,'credenciales inválidas');} 
                   }
                 }
               },
