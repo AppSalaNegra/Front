@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/api/api_operations.dart';
 import 'package:sala_negra/login/login_form_controller.dart';
+import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/shared/nav.dart';
 import 'package:sala_negra/register/register_view.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
@@ -86,13 +87,13 @@ class _LoginFormState extends State<LoginForm>{
                   if(validEmail){
                     final success = await ApiOperations.getInstance().loginSuccess(_controller.email.text, _controller.password.text);
                     if(success && mounted){
-                     Navigator.push(
+                      ApiOperations.getInstance().setContext(context);
+                      Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const NavBar(),
-                        settings: const RouteSettings(arguments: false),
-                        )
-                    );
+                        settings: const RouteSettings(arguments: false),)
+                      );
                     } else{ SalaNegraToast.launchToast('credenciales inválidas');} 
                   }
                 }

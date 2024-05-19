@@ -5,24 +5,26 @@ import 'package:sala_negra/prog/listItem/fav_button.dart';
 import 'package:sala_negra/utilities/app_colors.dart';
 import 'package:sala_negra/utilities/sala_negra_toast.dart';
 import 'package:html_unescape/html_unescape.dart';
-import 'prog_list_item_state.dart';
+import 'package:sala_negra/settings/collection/collection_item_state.dart';
 import 'package:intl/intl.dart';
 
-class ProgListItem extends StatefulWidget {
+class CollectionItem extends StatefulWidget {
 
-  final ProgListItemState state;
+  final CollectionItemState state;
+  final VoidCallback onDislike;
 
-  const ProgListItem({
+  const CollectionItem({
     super.key,
     required this.state,
+    required this.onDislike
   });
   
   @override
-  State<ProgListItem> createState() => _ProgListItemState();
+  State<CollectionItem> createState() => _CollectionItemState();
 }
 
 
-class _ProgListItemState extends State<ProgListItem> {
+class _CollectionItemState extends State<CollectionItem> {
   HtmlUnescape unescape = HtmlUnescape();
   @override
   Widget build(BuildContext context) {
@@ -129,6 +131,7 @@ class _ProgListItemState extends State<ProgListItem> {
                     }
                     if(ok){setState((){
                       widget.state.toggleLike();
+                      widget.onDislike();
                     });}else{
                       SalaNegraToast.launchToast('Error al procesar la solicitud');
                     }
