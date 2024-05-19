@@ -67,6 +67,7 @@ class _LoginFormState extends State<LoginForm>{
                   margin: const EdgeInsets.only(top: 10),
                   decoration: TextFieldsDecoration.mainFieldShadow, 
                   child: TextFormField(
+                    cursorColor: const Color.fromARGB(255, 0, 0, 0),
                     obscureText: true,
                     expands: false, 
                     style: AppFonts.mediumFont,
