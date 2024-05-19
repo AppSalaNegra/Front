@@ -37,7 +37,7 @@ class _NavBarState extends State<NavBar> {
 
   void _onLoad() async {
     final token = Session.getInstance().token;
-    if(await ApiOperations.getInstance().getEvents(token) && await ApiOperations.getInstance().getPots(token)){
+    if(await ApiOperations.getInstance().getEvents(token) && await ApiOperations.getInstance().getPosts(token)){
       setState(() {
         _isLoading = false;
       });

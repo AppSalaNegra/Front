@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/models/post.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 class NewsListItem extends StatelessWidget {
 
@@ -10,6 +11,7 @@ class NewsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HtmlUnescape escape = HtmlUnescape();
     return GestureDetector(
       onTap: () {
         print('tapped');
@@ -76,7 +78,7 @@ class NewsListItem extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 20, bottom: 20, top: 20),
                         child: Text(
-                          post.title,
+                          escape.convert(post.title),
                           style: AppFonts.newsItemTitle
                         ),
                       ),

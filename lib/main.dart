@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/login/login_view.dart';
+import 'package:sala_negra/utilities/app_colors.dart';
 
 void main() => runApp(const NavigationBarApp());
 
@@ -21,7 +22,12 @@ class NavigationBarApp extends StatelessWidget {
         ),
         primaryColorLight: const Color(0xFFFFB81C),
         primaryColorDark: const Color(0xFF2D2926),
-        fontFamily: 'Avenir'
+        fontFamily: 'Avenir',
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: Colors.black,
+          cursorColor: Colors.black,
+          selectionColor: AppColors.primaryColor.withAlpha(150)
+        ),
       ),
       home: const LoginView(),
     );

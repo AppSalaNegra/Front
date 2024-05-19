@@ -8,13 +8,13 @@ class AccountView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       extendBody: true,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
+        preferredSize: Size.fromHeight(80),
         child: SalaNegraAppBar(title: 'CUENTA'),
       ),
-      body: const AccountBody(),
+      body: AccountBody(),
     );
   }
 

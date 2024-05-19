@@ -1,16 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:sala_negra/login/login_view.dart';
 import 'package:sala_negra/models/app_events.dart';
 import 'package:sala_negra/models/app_posts.dart';
 import 'package:sala_negra/models/event.dart';
 import 'package:sala_negra/models/post.dart';
 import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/utilities/api_routes.dart';
+import 'package:sala_negra/utilities/sala_negra_toast.dart';
 
 class ApiOperations {
 
   static final ApiOperations _instance = ApiOperations._internal();
 
   late final Dio _dioHttp;
+  BuildContext? context;
 
   ApiOperations._internal() {
     _dioHttp = Dio();
@@ -18,8 +22,12 @@ class ApiOperations {
     _dioHttp.options.contentType = Headers.formUrlEncodedContentType;
   }
 
-static ApiOperations getInstance() {
+  static ApiOperations getInstance() {
     return _instance;
+  }
+
+  void setContext(BuildContext context){
+    this.context = context;
   }
 
   Future<bool> loginSuccess(String email, String password) async {
@@ -50,6 +58,9 @@ static ApiOperations getInstance() {
         },
         validateStatus: (status)=>true)
     );
+    if(response.statusCode == 401){
+      sessionExpired(context);
+    }
     if(response.statusCode == 200){
       List<Event> eventData = (response.data['data'] as List<dynamic>).map((item) => Event.fromJson(item)).toList();      
       Session.getInstance().loadUserEvents(userEvents: eventData);
@@ -80,6 +91,9 @@ static ApiOperations getInstance() {
         },
       validateStatus: (status)=>true)
     );
+    if(response.statusCode == 401){
+      sessionExpired(context);
+    }
     if(response.statusCode == 200){
       List<Event> eventData = (response.data['data'] as List<dynamic>).map((event) => Event.fromJson(event)).toList();      
       AppEvents.getInstance().setEvents(eventData);
@@ -88,7 +102,7 @@ static ApiOperations getInstance() {
     return false;
   }
 
-  Future<bool> getPots(String? token) async{
+  Future<bool> getPosts(String? token) async{
     final Response response = await _dioHttp.get(ApiRoutes.getPosts,
      options: Options(
         headers: {
@@ -96,12 +110,110 @@ static ApiOperations getInstance() {
         },
       validateStatus: (status)=>true)
     );
-    print(response.data);
+    if(response.statusCode == 401){
+      sessionExpired(context);
+    }
     if(response.statusCode == 200){
       List<Post> postData = (response.data['data'] as List<dynamic>).map((post) => Post.fromJson(post)).toList();
       AppPosts.getInstance().setAppPosts(postData);
       return true;
     }
     return false;
+  }
+
+  Future<String> changePassword(String? id, String? password, String? newPassword, String? token) async {
+    final data = FormData.fromMap({
+      'id': id,
+      'password': password,
+      'newPassword': newPassword
+    });
+    final Response response = await _dioHttp.post(
+      ApiRoutes.changePassword, data: data,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status)=>true
+      )
+    );
+    if(response.statusCode == 401){
+      sessionExpired(context);
+    }
+    if(response.statusCode == 200){
+      return 'Contraseña cambiada con éxito';
+    } else if(response.statusCode == 404){
+      return 'Contraseña incorrecta';
+    }
+    return 'Error al procesar la solicitud';
+  }
+
+  Future<bool> removeAccount(String? id, String? token) async {
+    final data = FormData.fromMap({
+      'id':id
+    });
+    final Response response = await _dioHttp.delete(
+      ApiRoutes.removeUser,
+      data: data,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status) => true,
+      )
+    );
+    if(response.statusCode == 401){
+      sessionExpired(context);
+    }
+    if(response.statusCode == 200){
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> likeEvent(String? id, String? eventId, String? token) async {
+    final data = FormData.fromMap({
+      'id':id,
+      'eventId':eventId
+    });
+    final Response response = await _dioHttp.post(
+      ApiRoutes.like, data: data,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status) => true,
+      )
+    );
+    if(response.statusCode == 401){
+      sessionExpired(context);
+    }
+    if(response.statusCode == 200){
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> dislikeEvent(String? id, String? eventId, String? token) async {
+    final data = FormData.fromMap({
+      'id':id,
+      'eventId':eventId
+    });
+    final Response response = await _dioHttp.post(
+      ApiRoutes.dislike, data: data,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status) => true,
+      )
+    );
+    if(response.statusCode == 401){
+      sessionExpired(context);
+    }
+    if(response.statusCode == 200){
+      return true;
+    }
+    return false;
+  }
+
+  void sessionExpired(BuildContext? context){
+    Session.getInstance().closeSession();
+    Navigator.push(
+      context!,
+      MaterialPageRoute(builder: (context) => const LoginView()),
+    );
+    SalaNegraToast.launchAlertToast(context,'La sesión ha expirado');
   }
 }

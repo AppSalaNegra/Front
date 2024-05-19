@@ -8,7 +8,7 @@ class RegisterBody extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
+      child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height-140,
           child: const RegisterForm(),

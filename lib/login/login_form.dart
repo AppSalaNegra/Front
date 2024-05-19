@@ -46,7 +46,7 @@ class _LoginFormState extends State<LoginForm>{
                   TextFieldsDecoration.mainFieldDecoration,
                   validator: (value) {
                     if(!_controller.validateEmail(value)){
-                      SalaNegraToast.launchToast('e-mail inválido');
+                      SalaNegraToast.launchAlertToast(context,'e-mail inválido');
                       validEmail = false;
                     }else{validEmail = true;}
                     return null;
@@ -67,6 +67,7 @@ class _LoginFormState extends State<LoginForm>{
                   margin: const EdgeInsets.only(top: 10),
                   decoration: TextFieldsDecoration.mainFieldShadow, 
                   child: TextFormField(
+                    cursorColor: const Color.fromARGB(255, 0, 0, 0),
                     obscureText: true,
                     expands: false, 
                     style: AppFonts.mediumFont,
@@ -86,14 +87,17 @@ class _LoginFormState extends State<LoginForm>{
                   if(validEmail){
                     final success = await ApiOperations.getInstance().loginSuccess(_controller.email.text, _controller.password.text);
                     if(success && mounted){
-                     Navigator.push(
+                      // ignore: use_build_context_synchronously
+                      ApiOperations.getInstance().setContext(context);
+                      Navigator.push(
+                      // ignore: use_build_context_synchronously
                       context,
                       MaterialPageRoute(
                         builder: (context) => const NavBar(),
-                        settings: const RouteSettings(arguments: false),
-                        )
-                    );
-                    } else{ SalaNegraToast.launchToast('credenciales inválidas');} 
+                        settings: const RouteSettings(arguments: false),)
+                      );
+                    // ignore: use_build_context_synchronously
+                    } else{ SalaNegraToast.launchAlertToast(context,'credenciales inválidas');} 
                   }
                 }
               },
