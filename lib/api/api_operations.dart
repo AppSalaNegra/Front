@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:sala_negra/models/app_events.dart';
+import 'package:sala_negra/models/app_posts.dart';
 import 'package:sala_negra/models/event.dart';
+import 'package:sala_negra/models/post.dart';
 import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/utilities/api_routes.dart';
 
@@ -79,8 +81,25 @@ static ApiOperations getInstance() {
       validateStatus: (status)=>true)
     );
     if(response.statusCode == 200){
-      List<Event> eventData = (response.data['data'] as List<dynamic>).map((item) => Event.fromJson(item)).toList();      
+      List<Event> eventData = (response.data['data'] as List<dynamic>).map((event) => Event.fromJson(event)).toList();      
       AppEvents.getInstance().setEvents(eventData);
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> getPots(String? token) async{
+    final Response response = await _dioHttp.get(ApiRoutes.getPosts,
+     options: Options(
+        headers: {
+          'Authorization': 'Bearer $token'
+        },
+      validateStatus: (status)=>true)
+    );
+    print(response.data);
+    if(response.statusCode == 200){
+      List<Post> postData = (response.data['data'] as List<dynamic>).map((post) => Post.fromJson(post)).toList();
+      AppPosts.getInstance().setAppPosts(postData);
       return true;
     }
     return false;
