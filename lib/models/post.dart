@@ -6,7 +6,7 @@ class Post {
   String url;
   String slug;
   String thumbnailUrl;
-  Map<String, String> cats;
+  List<Map<String, dynamic>> cats;
   String status;
 
   Post({
@@ -38,13 +38,13 @@ class Post {
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       id: json['id'],
-      dateTime: DateTime.fromMillisecondsSinceEpoch(int.parse(json['dateTime']['\$date']['\$numberLong'])),
+      dateTime: DateTime.parse(json['dateTime']),
       title: json['title'],
       excerpt: json['excerpt'],
       url: json['url'],
       slug: json['slug'],
       thumbnailUrl: json['thumbnail_url'],
-      cats: Map<String, String>.from(json['cats']),
+      cats: List<Map<String, dynamic>>.from(json['cats']),
       status: json['status'],
     );
   }

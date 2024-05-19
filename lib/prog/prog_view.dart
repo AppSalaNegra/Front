@@ -11,7 +11,7 @@ class ProgView extends StatefulWidget {
   const ProgView({super.key});
 
   @override
-  _ProgViewState createState() => _ProgViewState();
+  State<ProgView> createState() => _ProgViewState();
 }
 
 class _ProgViewState extends State<ProgView> {

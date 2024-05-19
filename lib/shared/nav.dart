@@ -19,9 +19,8 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 1;
   bool _isLoading = true;
 
-  // aquí se define la navegación de los botones de la barra inferior
   static final List<Widget> _widgetOptions = <Widget>[
-    const NewsView(),
+    NewsView(),
     const ProgView(),
     const SettingsView()
   ];
@@ -38,7 +37,7 @@ class _NavBarState extends State<NavBar> {
 
   void _onLoad() async {
     final token = Session.getInstance().token;
-    if(await ApiOperations.getInstance().getEvents(token)){
+    if(await ApiOperations.getInstance().getEvents(token) && await ApiOperations.getInstance().getPots(token)){
       setState(() {
         _isLoading = false;
       });
