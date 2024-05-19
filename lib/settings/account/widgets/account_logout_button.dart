@@ -11,14 +11,7 @@ class AccountLogoutButton extends StatelessWidget{
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Session.getInstance().closeSession();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginView(),
-            settings: const RouteSettings(arguments: false),
-            )
-        );
+        _showLogoutConfirmationDialog(context);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -34,6 +27,40 @@ class AccountLogoutButton extends StatelessWidget{
           ],
         ),
       ),
+    );
+  }
+
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmar cierre de sesión'),
+          content: const Text('¿Estás seguro de que deseas cerrar sesión?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Session.getInstance().closeSession();
+                Navigator.of(context).pop(); 
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginView(),
+                    settings: const RouteSettings(arguments: false),
+                  ),
+                );
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

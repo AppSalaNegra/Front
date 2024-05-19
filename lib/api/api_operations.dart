@@ -96,10 +96,48 @@ static ApiOperations getInstance() {
         },
       validateStatus: (status)=>true)
     );
-    print(response.data);
     if(response.statusCode == 200){
       List<Post> postData = (response.data['data'] as List<dynamic>).map((post) => Post.fromJson(post)).toList();
       AppPosts.getInstance().setAppPosts(postData);
+      return true;
+    }
+    return false;
+  }
+
+  Future<String> changePassword(String? id, String? password, String? newPassword, String? token) async {
+    final data = FormData.fromMap({
+      'id': id,
+      'password': password,
+      'newPassword': newPassword
+    });
+    final Response response = await _dioHttp.post(
+      ApiRoutes.changePassword, data: data,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status)=>true
+      )
+    );
+    if(response.statusCode == 200){
+      return 'Contraseña cambiada con éxito';
+    } else if(response.statusCode == 404){
+      return 'Contraseña incorrecta';
+    }
+    return 'Error al procesar la solicitud';
+  }
+
+  Future<bool> removeAccount(String? id, String? token) async {
+    final data = FormData.fromMap({
+      'id':id
+    });
+    final Response response = await _dioHttp.delete(
+      ApiRoutes.removeUser,
+      data: data,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+        validateStatus: (status) => true,
+      )
+    );
+    if(response.statusCode == 200){
       return true;
     }
     return false;

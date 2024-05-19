@@ -19,7 +19,6 @@ class _RegisterFormState extends State<RegisterForm>{
 
   final RegisterFormController _controller = RegisterFormController();
   final _registerKey = GlobalKey<FormState>();
-  bool validForm = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,6 @@ class _RegisterFormState extends State<RegisterForm>{
                     validator: (value) {
                       if(!_controller.validateName(value)){
                         SalaNegraToast.launchToast('Nombre inválido');
-                        validForm = false;
                       }
                       return null;
                     },
@@ -69,7 +67,6 @@ class _RegisterFormState extends State<RegisterForm>{
                     validator: (value) {
                       if(!_controller.validateLastname(value)){
                         SalaNegraToast.launchToast('Apellidos inválido');
-                        validForm = false;
                       }
                       return null;
                     },                    
@@ -94,7 +91,6 @@ class _RegisterFormState extends State<RegisterForm>{
                     validator: (value) {
                       if(!_controller.validateEmail(value)){
                         SalaNegraToast.launchToast('e-mail inválido');
-                        validForm = false;
                       }
                       return null;
                     },                    
@@ -139,7 +135,6 @@ class _RegisterFormState extends State<RegisterForm>{
                     validator: (value) {
                       if(!_controller.validatePassword(_controller.password.text, value)){
                         SalaNegraToast.launchToast('Contraseña inválida');
-                        validForm = false;
                       }
                       return null;
                     },
