@@ -11,7 +11,7 @@ class PasswordBody extends StatelessWidget{
   Widget build(BuildContext context) {
       return Column(
         children: [
-          PasswordForm(),
+          const PasswordForm(),
           Expanded(
             child: Align(
               alignment: Alignment.bottomLeft,

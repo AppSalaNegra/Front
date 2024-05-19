@@ -51,8 +51,10 @@ class AccountRemoveButton extends StatelessWidget{
                 if(await ApiOperations.getInstance().removeAccount(Session.getInstance().id, Session.getInstance().token)){
                   SalaNegraToast.launchToast('Cuenta eliminada con éxito');
                   Session.getInstance().closeSession();
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop(); 
                   Navigator.pushReplacement(
+                    // ignore: use_build_context_synchronously
                     context,
                     MaterialPageRoute(
                       builder: (context) => const LoginView(),

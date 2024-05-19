@@ -111,6 +111,7 @@ class _PasswordFormState extends State<PasswordForm>{
                     );
                     SalaNegraToast.launchToast(response);
                     if(response == 'Contraseña cambiada con éxito'){Navigator.push(
+                      // ignore: use_build_context_synchronously
                       context,
                       MaterialPageRoute(
                         builder: (context) => const NavBar(),

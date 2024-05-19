@@ -6,7 +6,7 @@ class SalaNegraAppBar extends StatelessWidget {
   
   final String title;
   
-  SalaNegraAppBar({this.title = 'default'});
+  const SalaNegraAppBar({super.key, this.title = 'default'});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class SalaNegraAppBar extends StatelessWidget {
             Stack(
               alignment: Alignment.topLeft,
               children: [
-                SalaNegraAppBarLogo(image: 'assets/img/logo.png'),
+                const SalaNegraAppBarLogo(image: 'assets/img/logo.png'),
                 Container(
                   padding: const EdgeInsets.only(left: 30, top: 22),
                   margin: const EdgeInsets.only(bottom: 25, right: 20),
