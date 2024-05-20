@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
 import 'package:sala_negra/utilities/social_logos.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class AboutSocialLinks extends StatelessWidget{
   
@@ -23,7 +24,7 @@ class AboutSocialLinks extends StatelessWidget{
             children: [
               IconButton(
                 onPressed: () {
-
+                  openBrowser(context, 'https://api.whatsapp.com/message/MARUDKVFJZKZN1?autoload=1&app_absent=0','Whatsapp');
                 },
                 icon: const Icon(
                   SocialLogos.whatsapp,
@@ -35,7 +36,7 @@ class AboutSocialLinks extends StatelessWidget{
                 padding: const EdgeInsets.only(left: 8.0),
                 child: IconButton(
                   onPressed: () {
-
+                    openBrowser(context, 'https://www.facebook.com/LaSalaNegra','Facebook');
                   },
                   icon: const Icon(
                     SocialLogos.facebook,
@@ -48,7 +49,7 @@ class AboutSocialLinks extends StatelessWidget{
                 padding: const EdgeInsets.only(left: 8.0),
                 child: IconButton(
                   onPressed: () {
-
+                    openBrowser(context, 'https://www.instagram.com/salanegracafeteatro/','Instagram');
                   },
                   icon: const Icon(
                     SocialLogos.instagram,
@@ -61,7 +62,7 @@ class AboutSocialLinks extends StatelessWidget{
                 padding: const EdgeInsets.only(left: 8.0),
                 child: IconButton(
                   onPressed: () {
-
+                    openBrowser(context, 'https://x.com/LaSalaNegra','Twitter');
                   },
                   icon: const Icon(
                     SocialLogos.twitterx,
@@ -74,7 +75,7 @@ class AboutSocialLinks extends StatelessWidget{
                 padding: const EdgeInsets.only(left: 8.0),
                 child: IconButton(
                   onPressed: () {
-
+                    openBrowser(context, 'https://www.youtube.com/channel/UCwdBlBYQwMS8ctgNQ9LdenQ/featured','Youtube');
                   },
                   icon: const Icon(
                     SocialLogos.youtube,
@@ -88,5 +89,28 @@ class AboutSocialLinks extends StatelessWidget{
         ],
       ),
     );
+  }
+
+  void openBrowser(BuildContext context, String url, String title) {
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      var controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate
+      ..loadRequest(Uri.parse(url));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(title),
+            ),
+            body: WebViewWidget(
+              controller: controller,
+            ),
+          );
+        }),
+      );
+    });
   }
 }

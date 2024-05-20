@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/models/post.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:html_unescape/html_unescape.dart';
 
 class NewsListItem extends StatelessWidget {
@@ -12,9 +13,30 @@ class NewsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HtmlUnescape escape = HtmlUnescape();
+
+    void _openWebBrowser() {
+      var controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate
+      ..loadRequest(Uri.parse(post.url));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(escape.convert(post.title)),
+            ),
+            body: WebViewWidget(
+              controller: controller,
+            ),
+          );
+        }),
+      );
+    }
     return GestureDetector(
       onTap: () {
-        print('tapped');
+        _openWebBrowser();
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),

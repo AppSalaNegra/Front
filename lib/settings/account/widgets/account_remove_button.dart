@@ -4,7 +4,6 @@ import 'package:sala_negra/login/login_view.dart';
 import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/utilities/app_colors.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
-import 'package:sala_negra/utilities/sala_negra_toast.dart';
 
 class AccountRemoveButton extends StatelessWidget{
  
@@ -54,8 +53,6 @@ class AccountRemoveButton extends StatelessWidget{
               ),
               onPressed: () async {
                 if(await ApiOperations.getInstance().removeAccount(Session.getInstance().id, Session.getInstance().token)){
-                  // ignore: use_build_context_synchronously
-                  SalaNegraToast.launchInfoToast(context,'Cuenta eliminada con éxito');
                   Session.getInstance().closeSession();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pop(); 

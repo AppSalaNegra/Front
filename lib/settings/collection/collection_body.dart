@@ -16,7 +16,6 @@ class _CollectionBodyState extends State<CollectionBody> {
 
   void _refreshBody() {
     setState(() {
-      // Aquí puedes agregar cualquier lógica adicional necesaria para recargar el contenido
     });
   }
 
@@ -24,26 +23,31 @@ class _CollectionBodyState extends State<CollectionBody> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Expanded(
-          child: userEvents.isEmpty
-              ? const Center(
-                  child: Text(
-                    'Oops, parece que no hay nada por aquí.',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                )
-              : ListView.builder(
-                  itemCount: userEvents.length,
-                  itemBuilder: (context, index) {
-                    return CollectionItem(
-                      state: CollectionItemState(
-                        true,
-                        userEvents[index],
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: userEvents.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'Oops, parece que no hay nada por aquí.',
+                        style: TextStyle(fontSize: 18),
                       ),
-                      onDislike: _refreshBody,
-                    );
-                  },
-                ),
+                    )
+                  : ListView.builder(
+                      itemCount: userEvents.length,
+                      itemBuilder: (context, index) {
+                        return CollectionItem(
+                          state: CollectionItemState(
+                            true,
+                            userEvents[index],
+                          ),
+                          onDislike: _refreshBody,
+                        );
+                      },
+                    ),
+            ),
+          ],
         ),
         Positioned(
           bottom: 16,

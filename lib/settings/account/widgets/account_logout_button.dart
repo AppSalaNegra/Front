@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sala_negra/api/api_operations.dart';
 import 'package:sala_negra/login/login_view.dart';
 import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/utilities/app_colors.dart';
@@ -51,6 +52,8 @@ class AccountLogoutButton extends StatelessWidget{
                 }),
               ),
               onPressed: () {
+                List<String> userEvents = Session.getInstance().userEvents.map((event) => event.id).toList();
+                ApiOperations.getInstance().updateUserEvents(Session.getInstance().id, userEvents, Session.getInstance().token);
                 Session.getInstance().closeSession();
                 Navigator.of(context).pop(); 
                 Navigator.pushReplacement(
