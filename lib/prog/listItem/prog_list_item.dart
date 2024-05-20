@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sala_negra/api/api_operations.dart';
 import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/prog/listItem/fav_button.dart';
 import 'package:sala_negra/utilities/app_colors.dart';
-import 'package:sala_negra/utilities/sala_negra_toast.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'prog_list_item_state.dart';
 import 'package:intl/intl.dart';
 
@@ -23,12 +22,35 @@ class ProgListItem extends StatefulWidget {
 
 
 class _ProgListItemState extends State<ProgListItem> {
+  
   HtmlUnescape unescape = HtmlUnescape();
+
+  void _openWebBrowser() {
+    var controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setBackgroundColor(const Color(0x00000000))
+    ..setNavigationDelegate
+    ..loadRequest(Uri.parse(widget.state.event.url));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(unescape.convert(widget.state.event.title)),
+          ),
+          body: WebViewWidget(
+            controller: controller,
+          ),
+        );
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('tapped');
+        _openWebBrowser();
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -108,33 +130,15 @@ class _ProgListItemState extends State<ProgListItem> {
                 ),
                 FavButton(
                   isLiked: widget.state.isLiked, 
-                  onPressed: () async {
-                    var ok = false;
+                  onPressed: () {
                     if(widget.state.isLiked){
-                      if(await ApiOperations.getInstance().dislikeEvent(
-                        Session.getInstance().id, widget.state.event.id, Session.getInstance().token
-                      )){
-                        Session.getInstance().removeUserEvent(widget.state.event);
-                        // ignore: use_build_context_synchronously
-                        SalaNegraToast.launchInfoToast(context,'Elemento eliminado de la colección');
-                        ok = true;
-                      }
+                      Session.getInstance().removeUserEvent(widget.state.event);
                     } else{
-                      if(await ApiOperations.getInstance().likeEvent(
-                        Session.getInstance().id, widget.state.event.id, Session.getInstance().token
-                      )){
-                        Session.getInstance().addUserEvent(widget.state.event);
-                        // ignore: use_build_context_synchronously
-                        SalaNegraToast.launchInfoToast(context,'Elemento añadido a la colección');
-                        ok = true;
-                      }
+                      Session.getInstance().addUserEvent(widget.state.event);
                     }
-                    if(ok){setState((){
+                    setState((){
                       widget.state.toggleLike();
-                    });}else{
-                      // ignore: use_build_context_synchronously
-                      SalaNegraToast.launchAlertToast(context,'Error al procesar la solicitud');
-                    }
+                    });
                   }
                 )
               ],

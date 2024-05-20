@@ -14,4 +14,5 @@ class ApiRoutes{
   static String dislike = '/users/dislike';
   static String like = '/users/like';
   static String getUserEvents = '/users/getLikedEvents';
+  static String updateUserEvents = '/users/update';
 }

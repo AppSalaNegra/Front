@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sala_negra/login/login_view.dart';
@@ -149,7 +151,7 @@ class ApiOperations {
     final data = FormData.fromMap({
       'id':id
     });
-    final Response response = await _dioHttp.delete(
+    final Response response = await _dioHttp.post(
       ApiRoutes.removeUser,
       data: data,
       options: Options(
@@ -157,6 +159,7 @@ class ApiOperations {
         validateStatus: (status) => true,
       )
     );
+    print(response.statusCode);
     if(response.statusCode == 401){
       sessionExpired(context);
     }
@@ -166,46 +169,22 @@ class ApiOperations {
     return false;
   }
 
-  Future<bool> likeEvent(String? id, String? eventId, String? token) async {
+  void updateUserEvents(String? id, List<String> events, String? token) async {
+    var encodedEvents = (jsonEncode(events));
     final data = FormData.fromMap({
-      'id':id,
-      'eventId':eventId
+      'id': id,
+      'events': encodedEvents
     });
     final Response response = await _dioHttp.post(
-      ApiRoutes.like, data: data,
+      ApiRoutes.updateUserEvents, data: data,
       options: Options(
-        headers: {'Authorization': 'Bearer $token'},
+        headers: {'Authorization': 'Bearer $token',},
         validateStatus: (status) => true,
       )
     );
     if(response.statusCode == 401){
       sessionExpired(context);
     }
-    if(response.statusCode == 200){
-      return true;
-    }
-    return false;
-  }
-
-  Future<bool> dislikeEvent(String? id, String? eventId, String? token) async {
-    final data = FormData.fromMap({
-      'id':id,
-      'eventId':eventId
-    });
-    final Response response = await _dioHttp.post(
-      ApiRoutes.dislike, data: data,
-      options: Options(
-        headers: {'Authorization': 'Bearer $token'},
-        validateStatus: (status) => true,
-      )
-    );
-    if(response.statusCode == 401){
-      sessionExpired(context);
-    }
-    if(response.statusCode == 200){
-      return true;
-    }
-    return false;
   }
 
   void sessionExpired(BuildContext? context){

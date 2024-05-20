@@ -14,7 +14,7 @@ class NavBar extends StatefulWidget {
   State<NavBar> createState() => _NavBarState();
 }
 
-class _NavBarState extends State<NavBar> {
+class _NavBarState extends State<NavBar> with WidgetsBindingObserver{
 
   int _selectedIndex = 1;
   bool _isLoading = true;
@@ -32,7 +32,23 @@ class _NavBarState extends State<NavBar> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _onLoad();
+  }
+
+  @override
+  void dispose(){
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    super.didChangeAppLifecycleState(state);
+    if(state == AppLifecycleState.inactive || state == AppLifecycleState.detached || state == AppLifecycleState.paused){
+      List<String> userEvents = Session.getInstance().userEvents.map((event) => event.id).toList();
+      ApiOperations.getInstance().updateUserEvents(Session.getInstance().id, userEvents, Session.getInstance().token);
+    }
   }
 
   void _onLoad() async {
