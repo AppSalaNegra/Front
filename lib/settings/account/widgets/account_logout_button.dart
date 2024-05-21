@@ -42,10 +42,10 @@ class AccountLogoutButton extends StatelessWidget{
           actions: <Widget>[
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent), 
-                foregroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)), 
-                overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
-                  if (states.contains(MaterialState.pressed)) {
+                backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent), 
+                foregroundColor: WidgetStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 0)), 
+                overlayColor: WidgetStateProperty.resolveWith<Color>((states) {
+                  if (states.contains(WidgetState.pressed)) {
                     return AppColors.primaryColor.withAlpha(120); 
                   }
                   return Colors.transparent;
@@ -68,8 +68,8 @@ class AccountLogoutButton extends StatelessWidget{
             ),
             TextButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.white), 
+                backgroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.white), 
               ),
               onPressed: () {
                 Navigator.of(context).pop(); 
