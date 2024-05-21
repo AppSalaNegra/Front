@@ -159,7 +159,6 @@ class ApiOperations {
         validateStatus: (status) => true,
       )
     );
-    print(response.statusCode);
     if(response.statusCode == 401){
       sessionExpired(context);
     }
@@ -187,12 +186,14 @@ class ApiOperations {
     }
   }
 
-  void sessionExpired(BuildContext? context){
+  void sessionExpired(BuildContext? context) {
     Session.getInstance().closeSession();
     Navigator.push(
+      // ignore: use_build_context_synchronously
       context!,
       MaterialPageRoute(builder: (context) => const LoginView()),
     );
+    // ignore: use_build_context_synchronously
     SalaNegraToast.launchAlertToast(context,'La sesión ha expirado');
   }
 }

@@ -14,7 +14,7 @@ class NewsListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     HtmlUnescape escape = HtmlUnescape();
 
-    void _openWebBrowser() {
+    void openWebBrowser() {
       var controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
@@ -36,7 +36,7 @@ class NewsListItem extends StatelessWidget {
     }
     return GestureDetector(
       onTap: () {
-        _openWebBrowser();
+        openWebBrowser();
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),

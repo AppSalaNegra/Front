@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sala_negra/api/api_operations.dart';
 import 'package:sala_negra/login/login_form_controller.dart';
+import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/shared/nav.dart';
 import 'package:sala_negra/register/register_view.dart';
 import 'package:sala_negra/utilities/app_fonts.dart';
 import 'package:sala_negra/utilities/button_styles.dart';
 import 'package:sala_negra/utilities/sala_negra_toast.dart';
 import 'package:sala_negra/utilities/text_fields_decoration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginForm extends StatefulWidget {
   
@@ -87,6 +89,10 @@ class _LoginFormState extends State<LoginForm>{
                   if(validEmail){
                     final success = await ApiOperations.getInstance().loginSuccess(_controller.email.text, _controller.password.text);
                     if(success && mounted){
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      await prefs.setString('id', Session.getInstance().id!);
+                      await prefs.setString('token', Session.getInstance().token!);
+                      await prefs.setBool('isLoggedIn', true);
                       // ignore: use_build_context_synchronously
                       ApiOperations.getInstance().setContext(context);
                       Navigator.push(

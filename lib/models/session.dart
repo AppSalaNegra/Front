@@ -1,4 +1,5 @@
 import 'package:sala_negra/models/event.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Session {
   String? token;
@@ -22,7 +23,11 @@ class Session {
     this.userEvents = userEvents;
   }
 
-  void closeSession(){
+  void closeSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('id');
+    await prefs.remove('token');
+    await prefs.setBool('isLoggedIn', false);
     token = null;
     id = null;
     userEvents = [];
