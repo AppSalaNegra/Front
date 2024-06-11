@@ -29,9 +29,9 @@ class CatButton extends StatelessWidget {
 
   ButtonStyle setStyle(){
     return ButtonStyle(
-      overlayColor: WidgetStateProperty.resolveWith<Color>(
-        (Set<WidgetState> states) {
-          if (states.contains(WidgetState.pressed)) {
+      overlayColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.pressed)) {
             return AppColors.primaryColor.withOpacity(0.2);
           }
           return Colors.transparent; 
