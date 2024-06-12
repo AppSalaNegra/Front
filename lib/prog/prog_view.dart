@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sala_negra/api/api_operations.dart';
 import 'package:sala_negra/models/app_events.dart';
 import 'package:sala_negra/models/session.dart';
 import 'package:sala_negra/prog/cats/cats_bar.dart';
@@ -50,6 +51,7 @@ class _ProgViewState extends State<ProgView> {
   @override
   Widget build(BuildContext context) {
     var items = setItems();
+    ApiOperations.getInstance().setContext(context);
     return Column(
       children: [
         // CatsBar

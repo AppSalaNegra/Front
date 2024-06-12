@@ -58,8 +58,8 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
     if (isLoggedIn) {
       Session.getInstance().updateSession(
-        token: prefs.getString('token')!, 
-        id: prefs.getString('id')!
+        token: prefs.getString('token') == null ? '' : prefs.getString('token')!, 
+        id: prefs.getString('id') == null ? '' : prefs.getString('id')!
       );
       ApiOperations.getInstance().getUserEvents(prefs.getString('id')!, prefs.getString('token')!);
       // ignore: use_build_context_synchronously

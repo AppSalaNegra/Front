@@ -85,41 +85,55 @@ class ApiOperations {
     return 'error al procesar la solicitud';
   }
 
-  Future<bool> getEvents(String? token) async{
-    final Response response = await _dioHttp.get(ApiRoutes.getEvents,
-     options: Options(
-        headers: {
-          'Authorization': 'Bearer $token'
-        },
-      validateStatus: (status)=>true)
-    );
-    if(response.statusCode == 401){
-      sessionExpired(context);
-    }
-    if(response.statusCode == 200){
-      List<Event> eventData = (response.data['data'] as List<dynamic>).map((event) => Event.fromJson(event)).toList();      
-      AppEvents.getInstance().setEvents(eventData);
-      return true;
+  Future<bool> getEvents(String? token) async {
+    try{
+      final Response response = await _dioHttp.get(ApiRoutes.getEvents,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token'
+          },
+          validateStatus: (status) => true,
+        ));
+
+      print('Response JSON: ${response.data}');
+
+      if (response.statusCode == 401) {
+        sessionExpired(context);
+      }
+      if (response.statusCode == 200) {
+        List<Event> eventData = (response.data['data'] as List<dynamic>)
+            .map((event) => Event.fromJson(event))
+            .toList();
+        AppEvents.getInstance().setEvents(eventData);
+        return true;
+      }
+    } catch(e){
+      print(e);
     }
     return false;
   }
 
   Future<bool> getPosts(String? token) async{
-    final Response response = await _dioHttp.get(ApiRoutes.getPosts,
-     options: Options(
-        headers: {
-          'Authorization': 'Bearer $token'
-        },
-      validateStatus: (status)=>true)
-    );
-    if(response.statusCode == 401){
-      sessionExpired(context);
+    try{
+      final Response response = await _dioHttp.get(ApiRoutes.getPosts,
+      options: Options(
+          headers: {
+            'Authorization': 'Bearer $token'
+          },
+        validateStatus: (status)=>true)
+      );
+      if(response.statusCode == 401){
+        sessionExpired(context);
+      }
+      if(response.statusCode == 200){
+        List<Post> postData = (response.data['data'] as List<dynamic>).map((post) => Post.fromJson(post)).toList();
+        AppPosts.getInstance().setAppPosts(postData);
+        return true;
+      }
+    } catch(e){
+      print(e);
     }
-    if(response.statusCode == 200){
-      List<Post> postData = (response.data['data'] as List<dynamic>).map((post) => Post.fromJson(post)).toList();
-      AppPosts.getInstance().setAppPosts(postData);
-      return true;
-    }
+    
     return false;
   }
 
